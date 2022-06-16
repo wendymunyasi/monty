@@ -16,8 +16,7 @@
 #include <fcntl.h>
 #include <unistd.h>
 
-#define TRUE 1
-#define FALSE 0
+
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
  * @n: integer
@@ -61,7 +60,24 @@ typedef struct global_vars
 
 extern glob_vars globv;
 
-/* monty.c */
+/**
+ * struct var_s - struct to contain the main variables of the Monty interpreter
+ * @queue: flag to determine if in stack vs queue mode
+ * @stack_len: length of the stack
+ */
+typedef struct var_s
+{
+	int queue;
+	size_t stack_len;
+} var_t;
+
+var_t var;
+
+extern var_t var;
+
+#define STACK 0
+#define QUEUE 1
+
 void stack_init(stack_t **head);
 void free_all(void);
 int file_reader(char *filename, stack_t **stack);
@@ -82,5 +98,7 @@ void _pchar(stack_t **stack, unsigned int line_number);
 void _pstr(stack_t **stack, unsigned int line_number);
 void _rotl(stack_t **stack, unsigned int line_number);
 void _rotr(stack_t **stack, unsigned int line_number);
+void _stack(stack_t **stack, unsigned int line_number);
+void _queue(stack_t **stack, unsigned int line_number);
 
 #endif /* MONTY */
