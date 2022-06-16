@@ -19,6 +19,7 @@ void get_po(stack_t **stack, char *op, unsigned int line_number)
         {"swap", _swap},
         {"add", _add},
         {"nop", _nop},
+        {"sub", _sub},
 		{NULL, NULL}
 	};
 
