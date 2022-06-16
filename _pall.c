@@ -13,7 +13,7 @@ void _pall(stack_t **stack, unsigned int line_number)
 {
 	stack_t *element = *stack;
 
-	(void)(line_number);
+	UNUSED(line_number);
 	while (element != NULL)
 	{
 		printf("%d\n", element->n);
