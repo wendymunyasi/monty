@@ -13,7 +13,7 @@ void get_po(stack_t **stack, char *op, unsigned int line_number)
 	int i = 0;
 	instruction_t valid_opcodes[] = {
 		{"push", _push}, {"pchar", _pchar},
-		{"pall", _pall},
+		{"pall", _pall}, {"pstr", _pstr},
 		{"pint", _pint},
 		{"pop", _pop},
         {"swap", _swap},
