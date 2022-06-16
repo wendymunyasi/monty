@@ -1,7 +1,7 @@
 #include "monty.h"
 
 /**
- * _push - function that prints the value at the top of the stack.
+ * _pint - function that prints the value at the top of the stack.
  * @stack: double pointer to the head of stack.
  * @line_number: script line number.
  *
