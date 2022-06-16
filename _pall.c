@@ -1,7 +1,7 @@
 #include "monty.h"
 
 /**
- * pall - function that print all values on the stack from the top.
+ * _pall - function that print all values on the stack from the top.
  * @stack: double pointer to the head of stack
  * @line_number: script line number.
  *
@@ -9,7 +9,7 @@
  *
  * Return: No return.
  */
-void pall(stack_t **stack, unsigned int line_number)
+void _pall(stack_t **stack, unsigned int line_number)
 {
 	stack_t *element = *stack;
 
@@ -18,9 +18,5 @@ void pall(stack_t **stack, unsigned int line_number)
 	{
 		printf("%d\n", element->n);
 		element = element->next;
-		if (element == *stack)
-		{
-			return;
-		}
 	}
 }

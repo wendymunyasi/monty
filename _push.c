@@ -1,7 +1,7 @@
 #include "monty.h"
 
 /**
- * push - function that pushes an element to the stack.
+ * _push - function that pushes an element to the stack.
  * @stack: double pointer to the head of stack.
  * @line_number: script line number.
  *
@@ -14,10 +14,10 @@
  *
  * Return: No return.
  */
-void push(stack_t **stack, unsigned int line_number)
+void _push(stack_t **stack, unsigned int line_number)
 {
 	stack_t *element = malloc(sizeof(stack_t));
-	char *op;
+	char *opcode;
 	int num;
 
 	if (!element)
@@ -25,14 +25,13 @@ void push(stack_t **stack, unsigned int line_number)
 		fprintf(stderr, "Error: malloc failed\n");
 		exit(EXIT_FAILURE);
 	}
-
-	op = strtok(NULL, "\n \t\r");
-	if (op == NULL || stack == NULL)
+	opcode = strtok(NULL, "\n\t\r ");
+	if (opcode == NULL || stack == NULL)
 	{
 		fprintf(stderr, "L%u: usage: push integer\n", line_number);
 		exit(EXIT_FAILURE);
 	}
-	num = interpreter(op, line_number);
+	num = interpreter(opcode, line_number);
 	element->n = num;
 	element->prev = NULL;
 	element->next = *stack;

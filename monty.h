@@ -1,7 +1,9 @@
-#ifndef _MONTY_H_
-#define _MONTY_H_
+#ifndef MONTY
+#define MONTY
+
 #define  _POSIX_C_SOURCE 200809L
 #define _GNU_SOURCE
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -9,7 +11,14 @@
 #include <limits.h>
 #include <ctype.h>
 #include <unistd.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <unistd.h>
 
+#define UNUSED(x) (void)(x)
+#define TRUE 1
+#define FALSE 0
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
  * @n: integer
@@ -17,7 +26,7 @@
  * @next: points to the next element of the stack (or queue)
  *
  * Description: doubly linked list node structure
- * for stack, queues, LIFO, FIFO
+ * for stack, queues, LIFO, FIFO Holberton project
  */
 typedef struct stack_s
 {
@@ -27,12 +36,12 @@ typedef struct stack_s
 } stack_t;
 
 /**
- * struct instruction_s - opcode and its function
+ * struct instruction_s - opcoode and its function
  * @opcode: the opcode
  * @f: function to handle the opcode
  *
  * Description: opcode and its function
- * for stack, queues, LIFO, FIFO
+ * for stack, queues, LIFO, FIFO Holberton project
  */
 typedef struct instruction_s
 {
@@ -41,23 +50,25 @@ typedef struct instruction_s
 } instruction_t;
 
 /**
- * struct glob_s - globally useful variables, all rolled into one
+ * struct global_vars - globally useful variables, all rolled into one
  * @top: double pointer to top of stack
  * @ops: double pointer to an instruction struct
 **/
-typedef struct glob_s
+typedef struct global_vars
 {
 	stack_t **top;
 	instruction_t **ops;
-} glob_t;
+} glob_vars;
 
-extern glob_t glob;
+extern glob_vars globv;
 
-void get_po(stack_t **stack, char *op, unsigned int line_number);
+/* monty.c */
 void stack_init(stack_t **head);
-int file_processor(char *filename, stack_t **stack);
-void push(stack_t **stack, unsigned int line_number);
-void pall(stack_t **stack, unsigned int line_number);
+void free_all(void);
+int file_reader(char *filename, stack_t **stack);
+void get_po(stack_t **stack, char *op, unsigned int line_number);
+void _push(stack_t **stack, unsigned int line_number);
+void _pall(stack_t **stack, unsigned int line_number);
 int interpreter(char *num_string, unsigned int line_number);
 
-#endif /* _MONTY_H_ */
+#endif /* MONTY */

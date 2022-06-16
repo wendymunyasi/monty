@@ -1,31 +1,33 @@
 #include "monty.h"
 
 /**
- * get_po - function that checks op against valid opcodes.
- * @op: pointer to op to check.
- * @stack: double pointer to the beginnig of the stack.
+ * get_po - function that checks opcodes against valid opcodes.
+ * @stack: double pointer to head of stack.
+ * @op: pointer to opcode to check.
  * @line_number: script line number.
  *
- * Return: No return.
- */
+ * Return: No return
+ **/
 void get_po(stack_t **stack, char *op, unsigned int line_number)
 {
-	int i;
-	/* an array of valid opcodes */
-	instruction_t valid_ops[] = {
-		{"push", push}, {"pall", pall},
+	int i = 0;
+	instruction_t valid_opcodes[] = {
+		{"push", _push},
+		{"pall", _pall},
 		{NULL, NULL}
 	};
 
-	for (i = 0; valid_ops[i].opcode; i++)
+	for (i = 0; valid_opcodes[i].opcode; i++)
 	{
-		/* compare the two null-terminated bytes strings */
-		if (strcmp(op, valid_ops[i].opcode) == 0)
+		if (strcmp(op, valid_opcodes[i].opcode) == 0)
 		{
-			valid_ops[i].f(stack, line_number);
+			valid_opcodes[i].f(stack, line_number);
 			return;
 		}
-	}	
-	fprintf(stderr, "L%u: unknown instruction %s\n", line_number, op);
-	exit(EXIT_FAILURE);
+	}
+	if (strlen(op) != 0 && op[0] != '#')
+	{
+		fprintf(stderr, "L%u: unknown instruction %s\n", line_number, op);
+		exit(EXIT_FAILURE);
+	}
 }

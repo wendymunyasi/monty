@@ -1,12 +1,10 @@
 #include "monty.h"
 
 /**
- * interpreter - function wrapper around strtol, handling monty specific,
- * errors.
- * @num_string: pointer to string that *should* represent an integer.
+ * interpreter - wrapper around strtol, handling monty specific errors
+ * @num_string: string that *should* represent an integer
  * @line_number: line counter of monty file
- *
- * Return: long int that strtol converted.
+ * Return: long int that strtol converted
  **/
 
 int interpreter(char *num_string, unsigned int line_number)
@@ -15,10 +13,12 @@ int interpreter(char *num_string, unsigned int line_number)
 	char *endptr;
 	long val;
 
+
 	errno = 0;    /* To distinguish success/failure after call */
 	val = strtol(num_string, &endptr, base);
 
 	/* Check for various possible errors */
+
 	if ((errno == ERANGE && (val == LONG_MAX || val == LONG_MIN))
 									|| (errno != 0 && val == 0))
 	{

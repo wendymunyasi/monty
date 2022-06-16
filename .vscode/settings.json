@@ -1,6 +1,8 @@
 {
     "files.associations": {
         "monty.h": "c",
-        "cstdlib": "c"
+        "cstdlib": "c",
+        "stdio.h": "c",
+        "types.h": "c"
     }
 }

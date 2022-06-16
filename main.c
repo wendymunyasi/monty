@@ -1,6 +1,7 @@
 #include "monty.h"
 
-glob_t glob;
+glob_vars globv;
+
 
 /**
  * main - check the code.
@@ -36,54 +37,53 @@ int main(int ac, char **av)
 	stack_init(&head);
 	if (ac != 2)
 	{
-		fprintf(stderr, "USAGE: monty file\n");
+		printf("USAGE: monty file\n");
 		exit(EXIT_FAILURE);
 	}
-	file_processor(av[1], &head);
+	file_reader(av[1], &head);
 	exit(EXIT_SUCCESS);
 }
 
 /**
- * file_processor - process the whole monty file
- * @_file: str name of monty opcode file
+ * file_reader - process the whole monty file
+ * @filename: str name of monty opcode file
  * @stack: double pointer to top of stack data struct
  * Return: return an error code or success
  **/
-int file_processor(char *_file, stack_t **stack)
+int file_reader(char *filename, stack_t **stack)
 {
 	size_t len;
 	ssize_t read;
 	unsigned int line_number = 0;
-	char *buffer = NULL;
-	FILE *file_descriptor;
+	char *line = NULL;
+	FILE *fp;
 	char *op;
 
-	/* if we have no file */
-	if (!_file)
+
+	if (!filename)
 	{
-		fprintf(stderr, "Error: Can't open file %s\n", _file);
+		printf("Error: Can't open file %s\n", filename);
 		exit(EXIT_FAILURE);
 	}
-	/* openning the file */
-	file_descriptor = fopen(_file, "r");
-	if (!file_descriptor)
+	fp = fopen(filename, "r");
+	if (fp == NULL)
 	{
-		fprintf(stderr, "Error: Can't open file %s\n", _file);
+		printf("Error: Can't open file %s\n", filename);
 		exit(EXIT_FAILURE);
 	}
-	while ((read = getline(&buffer, &len, file_descriptor)) != -1)
+	atexit(free_all);
+	while ((read = getline(&line, &len, fp)) != -1)
 	{
-		op = strtok(buffer, "\n\t\r");
+		op = strtok(line, "\n\t\r ");
 		line_number++;
-		if (op != NULL && op[0] != '#')
-		{
+		if (op)
 			get_po(stack, op, line_number);
-		}
 	}
-	free(buffer);
-	fclose(file_descriptor);
-	exit(EXIT_SUCCESS);
+	free(line);
+	fclose(fp);
+	return (EXIT_SUCCESS);
 }
+
 
 /**
  * stack_init - function that initializes all the things.
@@ -94,5 +94,24 @@ int file_processor(char *_file, stack_t **stack)
 void stack_init(stack_t **head)
 {
 	*head = NULL;
-	glob.top = head;
+	globv.top = head;
+}
+
+/**
+ * free_all - function that frees all malloc'ed memory.
+ *
+ * Return: No return.
+ **/
+void free_all(void)
+{
+	stack_t *tmp1, *tmp2 = NULL;
+
+	tmp1 = *(globv.top);
+	/* printf("glob.top->%p\n",  (void*)glob.top); */
+	while (tmp1 != NULL)
+	{
+		tmp2 = tmp1->next;
+		free(tmp1);
+		tmp1 = tmp2;
+	}
 }
