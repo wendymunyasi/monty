@@ -70,5 +70,6 @@ void get_po(stack_t **stack, char *op, unsigned int line_number);
 void _push(stack_t **stack, unsigned int line_number);
 void _pall(stack_t **stack, unsigned int line_number);
 int interpreter(char *num_string, unsigned int line_number);
+void _pint(stack_t **stack, unsigned int line_number);
 
 #endif /* MONTY */

@@ -14,6 +14,7 @@ void get_po(stack_t **stack, char *op, unsigned int line_number)
 	instruction_t valid_opcodes[] = {
 		{"push", _push},
 		{"pall", _pall},
+        {"pint", _pint},
 		{NULL, NULL}
 	};
 
