@@ -35,7 +35,7 @@ int main(int ac, char **av)
 	stack_t *head;
 
 	stack_init(&head);
-	if (ac != 2)
+	if (ac != 2 || ac < 2)
 	{
 		printf("USAGE: monty file\n");
 		exit(EXIT_FAILURE);
