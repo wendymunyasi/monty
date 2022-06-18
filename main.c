@@ -37,7 +37,7 @@ int main(int ac, char **av)
 	stack_init(&head);
 	if (ac != 2 || ac < 2)
 	{
-		printf("USAGE: monty file\n");
+		fprintf(stderr, "USAGE: monty file\n");
 		exit(EXIT_FAILURE);
 	}
 	file_reader(av[1], &head);
@@ -62,13 +62,13 @@ int file_reader(char *filename, stack_t **stack)
 
 	if (!filename)
 	{
-		printf("Error: Can't open file %s\n", filename);
+		fprintf(stderr, "Error: Can't open file %s\n", filename);
 		exit(EXIT_FAILURE);
 	}
 	fp = fopen(filename, "r");
 	if (fp == NULL)
 	{
-		printf("Error: Can't open file %s\n", filename);
+		fprintf(stderr, "Error: Can't open file %s\n", filename);
 		exit(EXIT_FAILURE);
 	}
 	atexit(free_all);
