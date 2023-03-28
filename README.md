@@ -557,6 +557,7 @@ julien@ubuntu:~/monty/bf$
 ## Known Bugs
 The following tasks did not pass all checks: tasks 0, 11 and 15. 
 
-### Collaborate
+
+## Collaborate
 
 To collaborate, reach me through the email addresses wendymunyasi@gmail.com.
